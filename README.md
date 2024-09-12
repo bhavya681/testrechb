@@ -9,7 +9,7 @@ To integrate the ChatbotToggle component into a plain HTML project, follow these
 Create an HTML file (e.g., index.html):
 
 html
-Copy code
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,14 +20,11 @@ Copy code
   <body>
     <!-- Container for the chatbot -->
     <div id="chatbot-container"></div>
-
     <!-- Load React and ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@latest/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
-
     <!-- Load your chatbot script -->
     <script crossorigin src="https://bhavya681.github.io/testrechb/chatbot-toggle.umd.js"></script>
-
     <!-- Initialize the ChatbotToggle component -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -36,7 +33,6 @@ Copy code
             botName: "DemoBot",
             welcomeMessage: "Hello! How can I assist you today?",
           });
-
           ReactDOM.render(
             chatbotElement,
             document.getElementById("chatbot-container")
@@ -48,6 +44,7 @@ Copy code
     </script>
   </body>
 </html>
+
 2. Configuration
 Replace https://bhavya681.github.io/testrechb/chatbot-toggle.umd.js with the URL where your ChatbotToggle script is hosted.
 Customize botName and welcomeMessage as needed.
@@ -58,11 +55,11 @@ To integrate the ChatbotToggle component into a React project, follow these step
 Create a new React component (e.g., Chatbot.jsx) in the src/components directory:
 
 jsx
-Copy code
+
 // src/components/Chatbot.jsx
+
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-
 const Chatbot = () => {
   useEffect(() => {
     // Mock process object for compatibility
@@ -71,33 +68,28 @@ const Chatbot = () => {
         NODE_ENV: 'production',
       },
     };
-
     const script = document.createElement('script');
     script.src = 'https://bhavya681.github.io/testrechb/chatbot-toggle.umd.js';
     script.async = true;
     document.body.appendChild(script);
-
     script.onload = () => {
       if (window.React && window.ReactDOM && window.ChatbotToggle) {
         const chatbotElement = React.createElement(window.ChatbotToggle, {
           botName: "DemoBot",
           welcomeMessage: "Hello! How can I assist you today?",
         });
-
         ReactDOM.render(
           chatbotElement,
           document.getElementById("chatbot-container")
         );
       }
     };
-
     return () => {
       document.body.removeChild(script);
       // Clean up mock process object
       delete window.process;
     };
   }, []);
-
   return <div id="chatbot-container"></div>;
 };
 
@@ -108,16 +100,15 @@ Include the Chatbot component in your main App component (e.g., App.jsx):
 jsx
 Copy code
 // src/App.jsx
+
 import React, { useState } from 'react';
 import Header from './components/Header';
 import StylistForm from './components/StylistForm';
 import RecommendationList from './components/RecommendationList';
 import { getStyleRecommendations } from './services/StylistService'; // Updated import
 import Chatbot from './components/Chatbot'; 
-
 function App() {
   const [recommendations, setRecommendations] = useState([]);
-
   const handleSubmitForm = async (preferences, weather, occasion) => {
     try {
       const data = await getStyleRecommendations(preferences, weather, occasion); // Updated function call
@@ -126,7 +117,6 @@ function App() {
       console.error('Error fetching recommendations:', error);
     }
   };
-
   return (
     <div className="App">
       <Header />
